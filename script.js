@@ -28,14 +28,22 @@ document.getElementById("check").addEventListener("click", globalCheck);
 				if(nameCheck()==true){
 					if(firstnameCheck()==true){
 						if(ageCheck()==true){
-							document.getElementById("target").disabled = false; 
-						} else {
+							if(userIDCheck()==true){
+								if(samePasswordCheck()==true){
+									document.getElementById("target").disabled = false; 
+								}else {
+									alert("Passwords aren't same !");
+								}  
+							}else {
+								alert("Your user ID is too short !");
+							} 
+						}else {
 							alert("Your age isn't correct !");
 						} 
-					} else {
+					}else {
 						alert("Enter a firstname !");
 					}
-				} else {
+				}else {
 					alert("Enter a name !");
 				}
 
@@ -76,6 +84,31 @@ document.getElementById("check").addEventListener("click", globalCheck);
 			var field_value = document.forms["form"]["age"].value;
 			//test if the field isn't empty and if it's >= 18
 			if((field_value != "")&&(field_value >=18 )){
+				check = true;
+			}
+			return check;
+		}
+
+		//Check if the userID's field's length is >= 12 
+		//return true if is check, false else
+		function userIDCheck(){
+			var check = new Boolean(false);
+			var field_value = document.forms["form"]["userID"].value;
+			//test if the field isn't empty and if the length is >= 12
+			if((field_value != "")&&(field_value.length >= 12)){
+				check = true;
+			}
+			return check;
+		}
+
+		//Check if the 2 passwords are same
+		//return true if is check, false else
+		function samePasswordCheck(){
+			var check = new Boolean(false);
+			var field_value_password1 = document.forms["form"]["password1"].value;
+			var field_value_password2 = document.forms["form"]["password2"].value;
+			//test if the fields are same
+			if(field_value_password1===field_value_password2){
 				check = true;
 			}
 			return check;
