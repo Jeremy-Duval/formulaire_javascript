@@ -11,19 +11,21 @@ document.getElementById("target").addEventListener("click", function() {
 
 //Action on checkbox 
 console.log(document.getElementById("check")); 
-document.getElementById("check").addEventListener("click", check);	
+document.getElementById("check").addEventListener("click", globalCheck);	
 	 
 });
 
-
-		function check() {
-				if(document.getElementById("check").checked)
-				{
-					console.log("Vous m'avez cochée");
-				}
-				else 
-				{
-					console.log("Vous m'avez bien décochée comme il faut !"); 
-				}
-		}
 	
+		//checks every field to see if we can enable the button 
+		//Call this function everytime the users does something 
+		function globalCheck(){
+			
+			//We store the value into a variable (because it's a too long name in the conditionnal structure bellow !) 
+			var checked = document.getElementById("check").checked; 
+			
+			
+			if(checked)
+				document.getElementById("target").disabled = false; 
+			else 
+				document.getElementById("target").disabled = true; 
+		}
