@@ -20,10 +20,10 @@ window.addEventListener("load", function() {
 	document.getElementById("userID").addEventListener("input", userIDCheck);
 
 	console.log(document.getElementById("password2")); 
-	document.getElementById("password2").addEventListener("input", samePasswordCheck);
+	document.getElementById("password2").addEventListener("input", PasswordCheck);
 
 	console.log(document.getElementById("password1")); 
-	document.getElementById("password1").addEventListener("input", samePasswordCheck);	
+	document.getElementById("password1").addEventListener("input", PasswordCheck);	
 	 
 });
 
@@ -133,8 +133,10 @@ window.addEventListener("load", function() {
 			//if they are same, check if they are 8 character long, or are longer
 			if(field_value_password1.length < 8)
 			{
-				alert("Error, password has to be 8 character or longer"); 
+				document.getElementById("spanLongerPassword").hidden = false;
 				check=false; 
+			}else{
+				document.getElementById("spanLongerPassword").hidden = true;
 			}
 			
 			
@@ -152,6 +154,7 @@ window.addEventListener("load", function() {
 				if (field_value_password1[i] > '0' && field_value_password1[i] < '9')
 				{
 					num = true; 
+					document.getElementById("spanNumberPassword").hidden = true;
 				}
 				//If the character is a min 
 				else if (field_value_password1[i] === field_value_password1[i].toLowerCase())
@@ -161,10 +164,12 @@ window.addEventListener("load", function() {
 					if (field_value_password1[i].toLowerCase() === field_value_password1[i].toUpperCase())
 					{
 						special = true; 
+						document.getElementById("spanSpecialPassword").hidden = true;
 					}
 					else
 					{
 						low = true;
+						document.getElementById("spanLowPassword").hidden = true;
 					}					
 				}
 				else if (field_value_password1[i] === field_value_password1[i].toUpperCase())
@@ -173,10 +178,12 @@ window.addEventListener("load", function() {
 					if (field_value_password1[i].toLowerCase() === field_value_password1[i].toUpperCase())
 					{
 						special = true; 
+						document.getElementById("spanSpecialPassword").hidden = true;
 					}
 					else
 					{
-						upp = true; 
+						upp = true;
+						document.getElementById("spanUpPassword").hidden = true;
 					}
 				}
 					
