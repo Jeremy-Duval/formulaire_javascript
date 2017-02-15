@@ -176,6 +176,9 @@ document.getElementById("check").addEventListener("click", globalCheck);
 
 			if (low === true && upp === true && num === true && special === true )
 			{
+				check=true;
+			}else{
+				check=false;
 			}
 			
 			
