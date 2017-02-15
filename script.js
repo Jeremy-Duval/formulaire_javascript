@@ -41,8 +41,9 @@ window.addEventListener("load", function() {
 					if(firstnameCheck()==true){
 						if(ageCheck()==true){
 							if(userIDCheck()==true){
-								if(samePasswordCheck()==true){
+								if(PasswordCheck()==true){
 									document.getElementById("target").disabled = false; 
+								}else {
 								}  
 							}
 						}
@@ -117,8 +118,8 @@ window.addEventListener("load", function() {
 
 		//Check if the 2 passwords are same
 		//return true if is check, false else
-		function samePasswordCheck(){
-			var check = new Boolean(false);
+		function PasswordCheck(){
+			var check = new Boolean(true);
 			var field_value_password1 = document.forms["form"]["password1"].value;
 			var field_value_password2 = document.forms["form"]["password2"].value;
 			//test if the fields are same
@@ -127,6 +128,74 @@ window.addEventListener("load", function() {
 				document.getElementById("spanSamePassword").hidden = true;
 			} else {
 				document.getElementById("spanSamePassword").hidden = false;
+				check=false; 
 			}
+			//if they are same, check if they are 8 character long, or are longer
+			if(field_value_password1.length < 8)
+			{
+				alert("Error, password has to be 8 character or longer"); 
+				check=false; 
+			}
+			
+			
+			//We create 4 boolean check if : -Pass has 1 min letter -Pass has 1 cap letter - Pass has 1 number -Pass has a special character
+			var low = new Boolean(false);
+			var upp = new Boolean(false);
+			var num = new Boolean(false);
+			var special = new Boolean(false);
+						
+			//For each character loop
+			for(var i = 0; i < field_value_password1.length; i ++)
+			{
+				//We check for what the character is 
+				
+				if (field_value_password1[i] > '0' && field_value_password1[i] < '9')
+				{
+					num = true; 
+				}
+				//If the character is a min 
+				else if (field_value_password1[i] === field_value_password1[i].toLowerCase())
+				{
+										
+					//Checks if it's a special character 
+					if (field_value_password1[i].toLowerCase() === field_value_password1[i].toUpperCase())
+					{
+						special = true; 
+					}
+					else
+					{
+						low = true;
+					}					
+				}
+				else if (field_value_password1[i] === field_value_password1[i].toUpperCase())
+				{
+					//Checks if it's a special character 
+					if (field_value_password1[i].toLowerCase() === field_value_password1[i].toUpperCase())
+					{
+						special = true; 
+					}
+					else
+					{
+						upp = true; 
+					}
+				}
+					
+				
+				
+
+				
+			}
+			
+			//We check if all conditions are filled				
+			console.log(low, upp, num , special); 
+
+			if (low === true && upp === true && num === true && special === true )
+			{
+				check=true;
+			}else{
+				check=false;
+			}
+			
+			
 			return check;
 		}
