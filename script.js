@@ -2,16 +2,28 @@
 //Wait for window to be loaded before you execute that code 
 window.addEventListener("load", function() {
 
-//Action on button	
-console.log(document.getElementById("target"));
-document.getElementById("target").addEventListener("click", function() {
-	console.log('haha, hey'); 
-	
-});
+	//Action on checkbox 
+	console.log(document.getElementById("check")); 
+	document.getElementById("check").addEventListener("click", globalCheck);	
+		 
 
-//Action on checkbox 
-console.log(document.getElementById("check")); 
-document.getElementById("check").addEventListener("click", globalCheck);	
+	console.log(document.getElementById("name")); 
+	document.getElementById("name").addEventListener("input", nameCheck);
+
+	console.log(document.getElementById("firstname")); 
+	document.getElementById("firstname").addEventListener("input", firstnameCheck);
+
+	console.log(document.getElementById("age")); 
+	document.getElementById("age").addEventListener("input", ageCheck);	
+
+	console.log(document.getElementById("userID")); 
+	document.getElementById("userID").addEventListener("input", userIDCheck);
+
+	console.log(document.getElementById("password2")); 
+	document.getElementById("password2").addEventListener("input", samePasswordCheck);
+
+	console.log(document.getElementById("password1")); 
+	document.getElementById("password1").addEventListener("input", samePasswordCheck);	
 	 
 });
 
@@ -31,20 +43,10 @@ document.getElementById("check").addEventListener("click", globalCheck);
 							if(userIDCheck()==true){
 								if(samePasswordCheck()==true){
 									document.getElementById("target").disabled = false; 
-								}else {
-									alert("Passwords aren't same !");
 								}  
-							}else {
-								alert("Your user ID is too short !");
-							} 
-						}else {
-							alert("Your age isn't correct !");
-						} 
-					}else {
-						alert("Enter a firstname !");
+							}
+						}
 					}
-				}else {
-					alert("Enter a name !");
 				}
 
 			}else{
@@ -61,6 +63,9 @@ document.getElementById("check").addEventListener("click", globalCheck);
 			//test if the field isn't empty 
 			if(field_value != ""){
 				check = true;
+				document.getElementById("spanName").hidden = true;
+			} else {
+				document.getElementById("spanName").hidden = false;
 			}
 			return check;
 		}
@@ -73,6 +78,9 @@ document.getElementById("check").addEventListener("click", globalCheck);
 			//test if the field isn't empty 
 			if(field_value != ""){
 				check = true;
+				document.getElementById("spanFirstName").hidden = true;
+			} else {
+				document.getElementById("spanFirstName").hidden = false;
 			}
 			return check;
 		}
@@ -85,6 +93,9 @@ document.getElementById("check").addEventListener("click", globalCheck);
 			//test if the field isn't empty and if it's >= 18
 			if((field_value != "")&&(field_value >=18 )){
 				check = true;
+				document.getElementById("spanAge").hidden = true;
+			} else {
+				document.getElementById("spanAge").hidden = false;
 			}
 			return check;
 		}
@@ -97,6 +108,9 @@ document.getElementById("check").addEventListener("click", globalCheck);
 			//test if the field isn't empty and if the length is >= 12
 			if((field_value != "")&&(field_value.length >= 12)){
 				check = true;
+				document.getElementById("spanUserID").hidden = true;
+			} else {
+				document.getElementById("spanUserID").hidden = false;
 			}
 			return check;
 		}
@@ -110,6 +124,9 @@ document.getElementById("check").addEventListener("click", globalCheck);
 			//test if the fields are same
 			if(field_value_password1===field_value_password2){
 				check = true;
+				document.getElementById("spanSamePassword").hidden = true;
+			} else {
+				document.getElementById("spanSamePassword").hidden = false;
 			}
 			return check;
 		}

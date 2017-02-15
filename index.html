@@ -4,6 +4,7 @@
 	<script language = "javascript" src = "script.js">
 	</script>
 	<meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="assets/css/index.css">
 	<title>Tell me all about you !</title>
 </head>
 <body>
@@ -12,12 +13,24 @@
 				
 			    <fieldset><legend>General information</legend>	
 			    	<p>
-					<input name="name" placeholder="name" name="name">
-					<input name="firstname" placeholder="firstname" name="firstname">
-					<input name="age" placeholder="age" name="age">
-					<input name="userID" placeholder="userID" name="userID">
-					<input name="password1" type="password1" placeholder="Enter you password" name="password1">
-					<input name="password2" type="password2" placeholder="Comfirm your password" name="password2">
+			    	<span id="spanName" style="color:red">Enter your name</span>
+					<input id="name" name="name" placeholder="name" name="name">
+
+					<span id="spanFirstName" style="color:red">Enter your first name</span>
+					<input id="firstname" name="firstname" placeholder="firstname" name="firstname">
+
+					<span id="spanAge" style="color:red">Enter your age (more than 18 years)</span>
+					<input id="age" name="age" placeholder="age" name="age">
+
+					<span id="spanUserID" style="color:red">Enter your ID (more than 12 caracteres)</span>
+					<input id="userID" name="userID" placeholder="userID" name="userID">
+
+
+					<span id="spanPassword1" style="color:red"></span>
+					<input id="password1" name="password1" type="password1" placeholder="Enter you password" name="password1">
+
+					<span id="spanSamePassword" style="color:red" visibility:hidden>Then second password isn't the same</span>
+					<input id="password2" name="password2" type="password2" placeholder="Comfirm your password" name="password2">
 				</p>
 				 </fieldset>
 				<label>I'm agree with GUC</label><input id = "check" type="checkbox" value="ok" name="guc">
