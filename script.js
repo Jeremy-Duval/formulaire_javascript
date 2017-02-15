@@ -2,6 +2,8 @@
 //Wait for window to be loaded before you execute that code 
 window.addEventListener("load", function() {
 
+globalCheck(); 
+
 //Action on button	
 console.log(document.getElementById("target"));
 document.getElementById("target").addEventListener("click", function() {
