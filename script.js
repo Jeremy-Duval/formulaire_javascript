@@ -5,7 +5,6 @@ window.addEventListener("load", function() {
 	//Action on checkbox 
 	console.log(document.getElementById("check")); 
 	document.getElementById("check").addEventListener("click", globalCheck);	
-		 
 
 	console.log(document.getElementById("name")); 
 	document.getElementById("name").addEventListener("input", nameCheck);
@@ -43,8 +42,7 @@ window.addEventListener("load", function() {
 							if(userIDCheck()==true){
 								if(PasswordCheck()==true){
 									document.getElementById("target").disabled = false; 
-								}else {
-								}  
+								} 
 							}
 						}
 					}
@@ -107,7 +105,7 @@ window.addEventListener("load", function() {
 			var check = new Boolean(false);
 			var field_value = document.forms["form"]["userID"].value;
 			//test if the field isn't empty and if the length is >= 12
-			if((field_value != "")&&(field_value.length >= 12)){
+			if((field_value != "")&&(field_value.length <= 12)){
 				check = true;
 				document.getElementById("spanUserID").hidden = true;
 			} else {
