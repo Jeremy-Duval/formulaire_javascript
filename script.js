@@ -134,8 +134,12 @@ document.getElementById("check").addEventListener("click", globalCheck);
 			{
 				//We check for what the character is 
 				
+				if (field_value_password1[i] > '0' && field_value_password1[i] < '9')
+				{
+					num = true; 
+				}
 				//If the character is a min 
-				if (field_value_password1[i] === field_value_password1[i].toLowerCase())
+				else if (field_value_password1[i] === field_value_password1[i].toLowerCase())
 				{
 										
 					//Checks if it's a special character 
@@ -148,7 +152,7 @@ document.getElementById("check").addEventListener("click", globalCheck);
 						low = true;
 					}					
 				}
-				if (field_value_password1[i] === field_value_password1[i].toUpperCase())
+				else if (field_value_password1[i] === field_value_password1[i].toUpperCase())
 				{
 					//Checks if it's a special character 
 					if (field_value_password1[i].toLowerCase() === field_value_password1[i].toUpperCase())
@@ -162,10 +166,7 @@ document.getElementById("check").addEventListener("click", globalCheck);
 				}
 					
 				
-				if (field_value_password1[i] > '0' && field_value_password1[i] < '9')
-				{
-					num = true; 
-				}
+				
 
 				
 			}
