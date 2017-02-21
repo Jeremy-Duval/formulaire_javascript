@@ -9,8 +9,6 @@ window.addEventListener("load", function() {
 
 function createAlarm(){
 
-	const option_number = 5;
-
 	/*****************************************************************************************/
 
     var checkbox_alarm = document.createElement('input');
@@ -48,6 +46,8 @@ function createAlarm(){
 	button_remove.id = "removeAlarm";
 
 	/*****************************************************************************************/
+	//Create array of options to be added
+	var array = ["drunkWorld.wav","Mallets.wav","megaAlert.wav","supersaw.wav"];
 
 	//Create and append select list
 	var select_sound = document.createElement('select');
@@ -56,10 +56,10 @@ function createAlarm(){
 	select_sound.id = "soundAlarm";
 
 	//Create and append the options
-	for (var i = 1; i <= option_number; i++) {
+	for (var i = 0; i < array.length; i++) {
 	    var option = document.createElement("option");
-	    option.value = "sound"+i;
-	    option.text = "sound"+i;
+	    option.value = array[i];
+	    option.text = array[i];
 	    select_sound.appendChild(option);
 	}
 
