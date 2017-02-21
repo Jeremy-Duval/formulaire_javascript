@@ -9,6 +9,10 @@ window.addEventListener("load", function() {
 
 function createAlarm(){
 
+	const option_number = 5;
+
+	/*****************************************************************************************/
+
     var checkbox_alarm = document.createElement('input');
 	checkbox_alarm.type = "checkbox";
 	checkbox_alarm.name = "checkAlarm";
@@ -23,27 +27,57 @@ function createAlarm(){
 	number_hours.max = "23";
 	number_hours.id = "hoursAlarm";
 
+	var number_minutes = document.createElement('input');
+	number_minutes.type = "number";
+	number_minutes.name = "minutesAlarm";
+	number_minutes.value = "0";
+	number_minutes.min = "0";
+	number_minutes.max = "59";
+	number_minutes.id = "minutesAlarm";
 
+	var text_name = document.createElement('input');
+	text_name.type = "text";
+	text_name.name = "nameAlarm";
+	text_name.value = "WAKE UP... please";
+	text_name.id = "nameAlarm";
 
-	document.form.appendChild(checkbox_alarm);
-	document.form.appendChild(number_hours);
+	var button_remove = document.createElement('input');
+	button_remove.type = "button";
+	button_remove.name = "removeAlarm";
+	button_remove.value = "-";
+	button_remove.id = "removeAlarm";
 
+	/*****************************************************************************************/
 
-    /*
-    <form name="form" action="http://champin.net/enseignement/intro-web/_static/formproc/debug" method="GET">
-		<h1>Formulaire</h1>
-		<fieldset><legend>Alarm 2</legend>	
-			<input id = "checkAlarm2" type="checkbox" value="alarm2" name="checkAlarm2">	
-			<input id = "hoursAlarm2" type="number" min="0" max="23" name="hoursAlarm2" value="0">	
-			<input id = "minutesAlarm2" type="number"  min="0" max="59" name="minutesAlarm2" value="00">
-			<input id = "nameAlarm2" type="text" name="nameAlarm2" value="WAKE UP... please">
-			<select id="soundAlarm2" name="soundAlarm2">
-				<option value="Sound1Alarm2">Sound 1</option>
-				<option value="Sound2Alarm2">Sound 2</option>
-			</select>
-			<input id = "removeAlarm2" type="button" value="-" name="removeAlarm2">
-		</fieldset>	
-		<input id = "new" type="button" value="+" name="new">	
-	</form>*/
+	//Create and append select list
+	var select_sound = document.createElement('select');
+	select_sound.type = "select";
+	select_sound.name = "soundAlarm";
+	select_sound.id = "soundAlarm";
+
+	//Create and append the options
+	for (var i = 1; i <= option_number; i++) {
+	    var option = document.createElement("option");
+	    option.value = "sound"+i;
+	    option.text = "sound"+i;
+	    select_sound.appendChild(option);
+	}
+
+	/*****************************************************************************************/
+
+    var fieldset_alarm = document.createElement('fieldset');
+
+    var legend_alarm = document.createElement ("legend");
+    legend_alarm.innerHTML = "Alarm";
+    
+    fieldset_alarm.appendChild(legend_alarm);
+	fieldset_alarm.appendChild(checkbox_alarm);
+	fieldset_alarm.appendChild(number_hours);
+	fieldset_alarm.appendChild(number_minutes);	
+	fieldset_alarm.appendChild(text_name);
+	fieldset_alarm.appendChild(select_sound);
+	fieldset_alarm.appendChild(button_remove);
+
+	document.form.appendChild(fieldset_alarm);
     
 }
