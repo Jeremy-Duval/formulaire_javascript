@@ -130,9 +130,11 @@ function createAlarm(){
 	
 	
     var fieldset_alarm = document.createElement("fieldset");
-
+	fieldset_alarm.id = "fieldset"+num_id;
+	
     var legend_alarm = document.createElement ("legend");
     legend_alarm.innerHTML = "Alarm";
+    legend_alarm.id = "fieldset"+num_id;
     
     fieldset_alarm.appendChild(legend_alarm);
 	fieldset_alarm.appendChild(checkbox_alarm);
@@ -147,12 +149,30 @@ function createAlarm(){
 
 	/******************************************EventListener**************************************/
 	button_remove.addEventListener('click', function(evt){
-
-		var alarmDelete = evt.target.value;
 		try{
+			var alarm_number = evt.target.id;
+			console.log("alarm_number : "+alarm_number);
+/*
+			var form = document.getElementById("alarmForm");
+			console.log("form : "+form);
+			form.removeChild(form.childNodes[alarm_number]);
 
+			if(alarm_number<num_id){
+				var i=alarm_number+1;
+				var element;
+				while(i<num_id){
+					element = getElementById(i);
+					console.log("elmt id : "+element.id);
+					element.id--;
+					i++;
+				}
+				num_id--;
+			}
+			*/
+			var legend_alarm_delete = document.getElementById("fieldset"+alarm_number).outerHTML = "";
+			delete legend_alarm_delete;
 		}catch(err){
-			console.log("Error : there is a problem to delete the alarm, but don't worry : we work on !");
+			console.log("Error : there is a problem to delete the alarm, but don't worry : we work on it !");
 		}
 	});
     
