@@ -1,10 +1,45 @@
 window.addEventListener("load", function() {
 
 	//Action on checkbox 
-	console.log(document.getElementById("new")); 
+	console.log(document.getElementById("new"));
+	
+	//Generates one clock timer 
+	updateClock();
+	
+
 	document.getElementById("new").addEventListener("click", createAlarm);	
+	
 	 
 });
+
+function updateClock()
+{
+	//Get the current time 
+	var currentTime = new Date(); 
+	
+	var hours = currentTime.getHours();
+	var minutes = currentTime.getMinutes();
+	var seconds = currentTime.getSeconds();
+	
+	if (hours < 10 )
+		hours = "0"+hours; 
+	if (minutes < 10) 
+		minutes= "0"+minutes;
+	if (seconds < 10)
+		seconds = "0"+seconds;
+	
+	//Get Alarms time
+	
+	
+	//Get the element we want to fill 
+	var elem = document.getElementById('clock'); 
+	//Fill the element 
+	elem.innerHTML = "Wake up there, it's already " + hours + ':' + minutes + ':' + seconds + "!" ; 
+	//Restart
+	var t = setTimeout(updateClock, 100);
+}
+
+
 
 
 function createAlarm(){
