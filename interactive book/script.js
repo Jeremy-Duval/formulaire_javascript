@@ -24,5 +24,7 @@ function getPage(){
 	    }
 	};
 
+	req.send();
+
 	
 }
