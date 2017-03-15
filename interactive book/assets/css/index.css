@@ -1,0 +1,25 @@
+body{
+	text-align : center; 
+	background-image:url("background.jpg"); 
+	background-size:100%; 
+
+	
+}
+
+#demo{
+	background-color: lightblue;
+
+	
+}
+
+
+a {
+	
+	display:block; 
+	background-color: DarkGreen;
+	color: white;
+	
+	margin : 2em 2em 2em 2em; 
+	padding: 1em 1em 1em 1em; 
+
+}
