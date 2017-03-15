@@ -2,7 +2,7 @@ header, body div, footer{
   border-style: outset;
 }
 
-header, footer{
+header, footer, body h1{
   text-align: center;
 }
 
