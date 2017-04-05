@@ -2,6 +2,7 @@ var canvas;
 var context;
 var mouse_down = false;
 var draw_color = 'black';
+var reset_button;
 
 window.addEventListener("load", function() {
 	 f_canvas();
@@ -16,6 +17,10 @@ function f_canvas(){
 	canvas.addEventListener("mousedown",mouseStateDown);
 	canvas.addEventListener("mousemove",circle);
 	canvas.addEventListener("mouseup",mouseStateUp);
+
+
+	reset_button = document.getElementById("reset");
+	reset_button.addEventListener("click", f_reset);
 
 }
 
@@ -76,4 +81,16 @@ function changeColor(event){
 	if((event.keyCode==48)||(event.keyCode==96)){
 		draw_color = 'black';
 	}
+}
+
+function f_reset(){
+	// Store the current transformation matrix
+	context.save();
+
+	// Use the identity matrix while clearing the canvas
+	context.setTransform(1, 0, 0, 1, 0, 0);
+	context.clearRect(0, 0, canvas.width, canvas.height);
+
+	// Restore the transform
+	context.restore();
 }
