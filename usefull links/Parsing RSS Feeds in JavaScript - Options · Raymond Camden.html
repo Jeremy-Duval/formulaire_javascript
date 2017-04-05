@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<!-- saved from url=(0080)https://www.raymondcamden.com/2015/12/08/parsing-rss-feeds-in-javascript-options -->
+<html lang="en-us"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>
+        
+        Parsing RSS Feeds in JavaScript - Options · Raymond Camden
+        
+    </title>
+    <meta name="generator" content="Hugo 0.17">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Raymond Camden">
+    
+      <meta name="description" content="">
+    
+	<link href="http://feeds.feedburner.com/raymondcamdensblog" rel="alternate" type="application/rss+xml" title="Raymond Camden">
+	<link href="http://feeds.feedburner.com/raymondcamdensblog" rel="feed" type="application/rss+xml" title="Raymond Camden">
+    <link rel="icon" href="https://www.raymondcamden.com/favicon.ico">
+    <link rel="apple-touch-icon" href="https://www.raymondcamden.com/apple-touch-icon.png">
+    <link rel="stylesheet" href="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/96d2672e29a8793b43236e497f0b3833fa58938c.css">
+    
+    
+    <link href="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/css" rel="stylesheet" type="text/css">
+    <link href="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/css(1)" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/a19fcaea92fcace0a5725ad533d036a63239e5c5.css">
+	
+	
+    <meta property="og:title" content="Parsing RSS Feeds in JavaScript - Options">
+<meta property="og:description" content="For a while now I’ve used the Google Feed API to parse RSS feeds in JavaScript. It did a good job of converting various RSS flavors into a simple array of entries you could easily work with. Unfortunately, Google has deprecated the API and while it still worked the last time I used it, I would strongly recommend folks migrate their apps away from it as soon as possible. While this makes me sad, you have to move on.
+
+
+
+">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://www.raymondcamden.com/2015/12/08/parsing-rss-feeds-in-javascript-options">
+
+
+<meta property="og:updated_time" content="2015-12-08T16:24:50+06:00">
+
+
+
+
+
+
+
+
+
+
+    
+    
+<meta itemprop="name" content="Parsing RSS Feeds in JavaScript - Options">
+<meta itemprop="description" content="For a while now I’ve used the Google Feed API to parse RSS feeds in JavaScript. It did a good job of converting various RSS flavors into a simple array of entries you could easily work with. Unfortunately, Google has deprecated the API and while it still worked the last time I used it, I would strongly recommend folks migrate their apps away from it as soon as possible. While this makes me sad, you have to move on.
+
+
+
+">
+
+
+<meta itemprop="dateModified" content="2015-12-08T16:24:50+06:00">
+<meta itemprop="wordCount" content="818">
+
+
+
+<meta itemprop="keywords" content="adoption,books,coldfusion,design,development,flex,games,html5,javascript,jquery,misc,mobile,movies,music,serverless,static-sites,television,uncategorized,video-games,advent-of-code,bluemix,cordova,front-end-interview-questions,harpjs,html5,ionic,javascript,jekyll,loopback,mobilefirst,nativescript,nodejs,openwhisk,phonegap,strongloop,swift,visual-studio-code,windows,">
+
+    
+
+  <meta name="twitter:card" content="summary">
+
+
+
+<meta name="twitter:title" content="Parsing RSS Feeds in JavaScript - Options">
+<meta name="twitter:description" content="For a while now I’ve used the Google Feed API to parse RSS feeds in JavaScript. It did a good job of converting various RSS flavors into a simple array of entries you could easily work with. Unfortunately, Google has deprecated the API and while it still worked the last time I used it, I would strongly recommend folks migrate their apps away from it as soon as possible. While this makes me sad, you have to move on.
+
+
+
+">
+<meta name="twitter:site" content="@raymondcamden">
+
+
+<script async="" src="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/analytics.js.téléchargement"></script><script src="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/embed.js.téléchargement" data-timestamp="1490188814793"></script></head>
+<body>
+<div class="container">
+
+<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="https://www.raymondcamden.com/" id="logo"><i class="logo" style="background-image: url(&#39;https://www.raymondcamden.com/css/images/logo.png&#39;)"></i><span class="site-title">Raymond Camden</span></a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="https://www.raymondcamden.com/">Home</a>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="https://www.raymondcamden.com/about/">About Me</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://www.raymondcamden.com/speaking/">Speaking Engagements</a>
+          
+          
+          
+          <a class="main-nav-link" href="https://www.raymondcamden.com/contact/">Contact</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/avatar.jpg"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="https://www.raymondcamden.com/search/" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" results="0" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="https://www.raymondcamden.com/">Home</a></td>
+          
+          
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="https://www.raymondcamden.com/about/">About Me</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://www.raymondcamden.com/speaking/">Speaking Engagements</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="https://www.raymondcamden.com/contact/">Contact</a></td>
+          
+          
+          <td>
+          <form action="https://www.raymondcamden.com/search/" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" results="0" class="search-form-input" placeholder="Search">
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+
+<div id="container">
+   <div class="outer">
+    <aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      <img id="avatar" src="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/avatar.jpg">
+      <h2 id="name">Raymond Camden</h2>
+      <h3 id="title">Developer Advocate for IBM</h3>
+      <span id="location"><i class="fa fa-map-marker"></i>Earth</span>
+      
+          <a id="follow" href="https://twitter.com/raymondcamden">
+              Follow
+          </a>
+      
+    </div>
+    
+    <div class="contact-info profile-block">
+      <table class="contact-list">
+        <tbody><tr>
+          
+<td><a href="https://github.com/cfjedimaster" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="https://youtube.com/theraymondcamden" target="_blank" title="YouTube"><i class="fa fa-youtube"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="https://twitter.com/raymondcamden" target="_blank" title="Twitter"><i class="fa fa-twitter"></i></a></td>
+
+
+          <td><a href="http://feeds.feedburner.com/raymondcamdensblog" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </tbody></table>
+    </div>
+  </div>
+
+	<div style="margin:auto;width:300px;padding-top:20px">
+
+<script async="" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+<ins class="adsbygoogle" style="display:inline-block;width:160px;height:600px" data-ad-client="ca-pub-1736437642005360" data-ad-slot="7690209895"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+	</div>
+  
+</aside>
+
+    
+<section id="main">
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+
+		
+
+		<p><a href="https://hostek.com/#raycamden">
+			<img src="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/ht_banner_camden_v2r3.jpg" class="centered" style="margin-bottom:10px;max-width:100%">
+		</a></p>
+
+		
+
+        <div class="article-inner">
+            
+
+            <header class="article-header">
+    <a href="https://www.raymondcamden.com/2015/12/08/parsing-rss-feeds-in-javascript-options">
+    <h1 class="article-title" itemprop="name">
+        Parsing RSS Feeds in JavaScript - Options
+    </h1>
+    </a>
+    <div class="article-meta">
+		
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2015-12-08 16:24:50 +0600 +0600" itemprop="datePublished">2015-12-08</time>
+        </div>
+		
+        
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-folder"></i>
+                
+                <a class="article-category-link" href="https://www.raymondcamden.com/categories/development">Development</a>
+                ·
+                
+                <a class="article-category-link" href="https://www.raymondcamden.com/categories/javascript">JavaScript</a>
+                
+                
+            </div>
+            
+        
+
+        
+            
+            
+        
+    </div>
+</header>
+
+            <div class="article-entry" itemprop="articleBody" style="padding-bottom:10px">
+                <p>For a while now I’ve used the <a href="https://developers.google.com/feed/?hl=en">Google Feed API</a> to parse RSS feeds in JavaScript. It did a good job of converting various RSS flavors into a simple array of entries you could easily work with. Unfortunately, Google has deprecated the API and while it still worked the last time I used it, I would strongly recommend folks migrate their apps away from it as soon as possible. While this makes me sad, you have to move on.</p>
+
+<p><img src="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/2000px-Sad_panda.svg_.png" alt="2000px-Sad_panda.svg" width="400" height="400" class="aligncenter size-full wp-image-7229"></p>
+
+<p></p>
+
+<p>So what kind of options do you have?</p>
+
+<h2>Parsing Manually</h2>
+
+<p>So remember that RSS is just XML, and XML is just a string, and string parsing is easy, right? Of course, there are 2 major flavors of RSS, and multiple versions of both flavors, but if you’re just parsing one known RSS feed then you can write to that particular flavor and version. (More about the different versions can be found on <a href="https://en.wikipedia.org/wiki/RSS">Wikipedia</a>.) Unfortunately, if you try to simply XHR to a RSS feed you’ll run into the lovely cross origin browser doohicky that prevents you from making requests to another server. Of course, if the RSS is on the same domain, that isn’t a problem. And of course, if you are building something in Apache Cordova, then it isn’t a problem either. (Just don’t forget to update the CSP!) And finally - if you control the RSS, you could add a CORS header to it so modern browsers could use it. Unfortunately, if none of those apply, you’re out of luck trying to do it completely client-side. (Well, until we get to the next options!) Let’s pretend that none of the roadblocks apply to you and look at a simple example. (As a quick note, none of my sample code will actually render anything. It will just get crap, parse it, and log data. I’m assuming folks know how to manipulate the DOM. I’ve heard there’s a <a href="http://www.jquery.com/">good library</a> for that.)</p>
+
+<pre class=" language-javascript"><code class=" language-javascript"><span class="token function">$</span><span class="token punctuation">(</span>document<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ready</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//feed to parse</span>
+    <span class="token keyword">var</span> feed <span class="token operator">=</span> <span class="token string">"http://feeds.feedburner.com/raymondcamdensblog?format=xml"</span><span class="token punctuation">;</span>
+    
+    $<span class="token punctuation">.</span><span class="token function">ajax</span><span class="token punctuation">(</span>feed<span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        accepts<span class="token punctuation">:</span><span class="token punctuation">{</span>
+            xml<span class="token punctuation">:</span><span class="token string">"application/rss+xml"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        dataType<span class="token punctuation">:</span><span class="token string">"xml"</span><span class="token punctuation">,</span>
+        success<span class="token punctuation">:</span><span class="token keyword">function</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">//Credit: http://stackoverflow.com/questions/10943544/how-to-parse-an-rss-feed-using-javascript</span>
+
+            <span class="token function">$</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token string">"item"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">each</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// or "item" or whatever suits your feed</span>
+                <span class="token keyword">var</span> el <span class="token operator">=</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"------------------------"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"title      : "</span> <span class="token operator">+</span> el<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token string">"title"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">text</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"link       : "</span> <span class="token operator">+</span> el<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token string">"link"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">text</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+                console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"description: "</span> <span class="token operator">+</span> el<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span><span class="token string">"description"</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">text</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+
+        <span class="token punctuation">}</span>   
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>So all I’m doing here is using jQuery to request my RSS feed. I then use jQuery’s built in XML parsing to iterate over the &lt;item&gt; blocks in my RSS feed. As you can see, I’m using sample code from a <a href="http://stackoverflow.com/questions/10943544/how-to-parse-an-rss-feed-using-javascript">StackOverflow answer</a> that I modified a tiny bit. Specifically the answer iterated over &lt;entry&gt; blocks, not &lt;item&gt;. Remember when I said there were different flavors of RSS? That’s an example of the issue right there. If you must write code to handle both cases, you would need to look for &lt;item&gt; first and then &lt;entry&gt;. But that’s basically it. If your curious, I tested this in Canary with –disable-web-security as a command line flag.</p>
+
+<p><img src="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/shot14.png" alt="shot1" width="750" height="552" class="aligncenter size-full wp-image-7231"></p>
+
+<h2>YQL</h2>
+
+<p>Remember <a href="https://developer.yahoo.com/yql/">YQL (Yahoo Query Language)</a>? The last time I blogged about it was way back in 2010 (<a href="http://www.raymondcamden.com/2010/01/19/proof-of-concept-911-viewer">Proof of Concept 911 Viewer</a>). As a gross simplification, YQL acts like a “query language” for the web. You can literally run SQL like content against URLs and get formatted data out of it. They provide a powerful testing console and wouldn’t you know it, one of the examples is a RSS parser:</p>
+
+<p><img src="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/shot21.png" alt="shot2" width="750" height="449" class="aligncenter size-full wp-image-7232"></p>
+
+<p>Just in case that screenshot is a bit too small, here is what the YQL statement looks like:</p>
+
+<p><code>select title from rss where url=“<a href="http://rss.news.yahoo.com/rss/topstories%22">http://rss.news.yahoo.com/rss/topstories"</a></code></p>
+
+<p>I’ve got one word for that. Bad ass! Like, kitten in armor bad ass!</p>
+
+<p><img src="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/shot3.jpg" alt="shot3" width="350" height="250" class="aligncenter size-full wp-image-7233"></p>
+
+<p>I tested with two different RSS flavors and YQL had no issue handling either. Note the REST query URL at the bottom. I copied that into a new file:</p>
+
+<pre class=" language-javascript"><code class=" language-javascript"><span class="token function">$</span><span class="token punctuation">(</span>document<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ready</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    
+    <span class="token keyword">var</span> yql <span class="token operator">=</span> <span class="token string">"https://query.yahooapis.com/v1/public/yql?q=select%20title%2Clink%2Cdescription%20from%20rss%20where%20url%3D%22http%3A%2F%2Ffeeds.feedburner.com%2Fraymondcamdensblog%3Fformat%3Dxml%22&amp;format=json&amp;diagnostics=true&amp;callback="</span><span class="token punctuation">;</span>
+    
+    $<span class="token punctuation">.</span><span class="token function">getJSON</span><span class="token punctuation">(</span>yql<span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>   
+    <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token string">"jsonp"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>And it worked like a charm. Note the use of JSON/P to sidestep needing CORS. And here is the result:</p>
+
+<p><img src="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/shot4.png" alt="shot4" width="750" height="654" class="aligncenter size-full wp-image-7234"></p>
+
+<p>A big thank you to Addy Osmani from Google for reminding me that YQL was still around. Google, I forgive you for killing the Feed API now.</p>
+
+<h2>Feednami</h2>
+
+<p>Last but not least is a brand new service, <a href="https://feednami.com/">Feednami</a>, created just in time for the death of the Google Feeds API. To use it you simply add a new script to your code and then use feednami.load() to get your feed. Here is an example:</p>
+
+<pre class=" language-javascript"><code class=" language-javascript">
+<span class="token function">$</span><span class="token punctuation">(</span>document<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">ready</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    
+    <span class="token keyword">var</span> url <span class="token operator">=</span> <span class="token string">'http://feeds.feedburner.com/raymondcamdensblog?format=xml'</span><span class="token punctuation">;</span>
+    
+    feednami<span class="token punctuation">.</span><span class="token function">load</span><span class="token punctuation">(</span>url<span class="token punctuation">,</span><span class="token keyword">function</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">if</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span>error<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span>error<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">var</span> entries <span class="token operator">=</span> result<span class="token punctuation">.</span>feed<span class="token punctuation">.</span>entries<span class="token punctuation">;</span>
+            <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> entries<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+                <span class="token keyword">var</span> entry <span class="token operator">=</span> entries<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+                console<span class="token punctuation">.</span><span class="token function">dir</span><span class="token punctuation">(</span>entry<span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+
+<p>That’s also pretty darn easy to use. Here is the result:</p>
+
+<p><img src="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/shot5.png" alt="shot5" width="750" height="654" class="aligncenter size-full wp-image-7235"></p>
+
+<h2>Summary</h2>
+
+<p>So - you’ve got options. Which one is best? Honestly I don’t know. YQL requires the least amount of code from what I can see, but I kinda dig Feednami’s look a bit more. If you’ve used any of these in production, drop me a comment below with your thoughts!</p>
+            </div>
+            
+<footer class="article-footer">
+	
+    <a data-url="https://www.raymondcamden.com/2015/12/08/parsing-rss-feeds-in-javascript-options" data-id="e62cf79465a02933904998948758bc4e" class="article-share-link">
+        Share
+    </a>
+    <a href="https://www.raymondcamden.com/2015/12/08/parsing-rss-feeds-in-javascript-options/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+</footer>
+
+        </div>
+
+    </article>
+	
+	
+	<section id="authorPlead">
+		<h2>Like This?</h2>
+		<p>
+			If you like this article, please consider visiting my <a href="http://www.amazon.com/gp/registry/wishlist/2TCL1D08EZEYE/ref=cm_wl_rlist_go_v?">Amazon Wishlist</a> 
+			or <a href="https://paypal.me/RaymondCamden">donating via PayPal</a> to show your support. You can also 			
+			<a href="https://feedburner.google.com/fb/a/mailverify?uri=RaymondCamdensBlog">subscribe to the email feed</a> 
+			to get notified of new posts.
+		</p>
+
+<h2>Want to read more like this?</h2>
+	<ul>
+	
+	Sorry, nothing recent related to this content is available.
+	
+	</ul>	
+	</section>
+
+
+	
+	
+		
+    <section id="comments">
+        <div id="disqus_thread"><iframe id="dsq-app1" name="dsq-app1" allowtransparency="true" frameborder="0" scrolling="no" tabindex="0" title="Disqus" width="100%" src="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/saved_resource.html" style="width: 1px !important; min-width: 100% !important; border: none !important; overflow: hidden !important; height: 4665px !important;" horizontalscrolling="no" verticalscrolling="no"></iframe></div>
+    </section>
+	
+</section>
+
+    <aside id="sidebar">
+
+	<div class="widget-wrap">
+		<h3 class="widget-title">
+			Sponsors
+		</h3>
+		<div class="widget">
+			<a href="http://www.fusion-reactor.com/?affiliate=raymondcamden"><img src="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/frad2017a.png" title="FusionReactor"></a>
+		</div>
+	</div>
+
+  	
+	
+	<div id="sideBarDyn">
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Recents
+    </h3>
+    <div class="widget">
+        <ul id="recent-post">
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://www.raymondcamden.com/2017/03/21/some-thoughts-on-static-sites-and-security" class="thumbnail">
+                    
+                        <span style="background-image:url(https://static.raymondcamden.com/images/banners/sss.jpg)" alt="Some Thoughts on Static Sites and Security" class="thumbnail-image"></span>
+					
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    <p class="item-category">
+                        <a class="article-category-link" href="https://www.raymondcamden.com/categories/static-sites">
+                        Static-Sites
+                        </a>
+                    </p>
+                    
+                    <p class="item-title"><a href="https://www.raymondcamden.com/2017/03/21/some-thoughts-on-static-sites-and-security" class="title">Some Thoughts on Static Sites and Security</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-03-21 10:34:00 -0700 -0700" itemprop="datePublished">2017-03-21</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://www.raymondcamden.com/2017/03/20/my-openwhisk-alexa-skill-is-live" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    <p class="item-category">
+                        <a class="article-category-link" href="https://www.raymondcamden.com/categories/serverless">
+                        Serverless
+                        </a>
+                    </p>
+                    
+                    <p class="item-title"><a href="https://www.raymondcamden.com/2017/03/20/my-openwhisk-alexa-skill-is-live" class="title">My OpenWhisk Alexa Skill is Live!</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-03-20 16:58:00 -0700 -0700" itemprop="datePublished">2017-03-20</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://www.raymondcamden.com/2017/03/17/creating-alexa-skills-with-openwhisk-part-two" class="thumbnail">
+                    
+                        <span style="background-image:url(https://static.raymondcamden.com/images/banners/alexaow2.jpg)" alt="Creating Alexa Skills with OpenWhisk - Part Two" class="thumbnail-image"></span>
+					
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    <p class="item-category">
+                        <a class="article-category-link" href="https://www.raymondcamden.com/categories/serverless">
+                        Serverless
+                        </a>
+                    </p>
+                    
+                    <p class="item-title"><a href="https://www.raymondcamden.com/2017/03/17/creating-alexa-skills-with-openwhisk-part-two" class="title">Creating Alexa Skills with OpenWhisk - Part Two</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-03-17 09:53:00 -0700 -0700" itemprop="datePublished">2017-03-17</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://www.raymondcamden.com/2017/03/15/a-twitter-package-for-openwhisk" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    <p class="item-category">
+                        <a class="article-category-link" href="https://www.raymondcamden.com/categories/serverless">
+                        Serverless
+                        </a>
+                    </p>
+                    
+                    <p class="item-title"><a href="https://www.raymondcamden.com/2017/03/15/a-twitter-package-for-openwhisk" class="title">A Twitter Package for OpenWhisk</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-03-15 14:41:00 -0700 -0700" itemprop="datePublished">2017-03-15</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="https://www.raymondcamden.com/2017/03/13/quick-console-script-for-oreilly-authors" class="thumbnail">
+                    
+                        <span class="thumbnail-image thumbnail-none"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    <p class="item-category">
+                        <a class="article-category-link" href="https://www.raymondcamden.com/categories/javascript">
+                        JavaScript
+                        </a>
+                    </p>
+                    
+                    <p class="item-title"><a href="https://www.raymondcamden.com/2017/03/13/quick-console-script-for-oreilly-authors" class="title">Quick console script for O'Reilly Authors</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-03-13 17:04:00 -0700 -0700" itemprop="datePublished">2017-03-13</time>
+                    </p>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/adoption">
+                    adoption
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/books">
+                    books
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/coldfusion">
+                    coldfusion
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/design">
+                    design
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/development">
+                    development
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/flex">
+                    flex
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/games">
+                    games
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/html5">
+                    html5
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/javascript">
+                    javascript
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/jquery">
+                    jquery
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/misc">
+                    misc
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/mobile">
+                    mobile
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/movies">
+                    movies
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/music">
+                    music
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/serverless">
+                    serverless
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/static-sites">
+                    static-sites
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/television">
+                    television
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/uncategorized">
+                    uncategorized
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/categories/video-games">
+                    video-games
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tags
+    </h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/advent-of-code">
+                    advent-of-code
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/bluemix">
+                    bluemix
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/cordova">
+                    cordova
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/front-end-interview-questions">
+                    front-end-interview-questions
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/harpjs">
+                    harpjs
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/html5">
+                    html5
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/ionic">
+                    ionic
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/javascript">
+                    javascript
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/jekyll">
+                    jekyll
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/loopback">
+                    loopback
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/mobilefirst">
+                    mobilefirst
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/nativescript">
+                    nativescript
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/nodejs">
+                    nodejs
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/openwhisk">
+                    openwhisk
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/phonegap">
+                    phonegap
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/strongloop">
+                    strongloop
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/swift">
+                    swift
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/visual-studio-code">
+                    visual-studio-code
+                </a>
+            </li>
+            
+            <li class="category-list-item">
+                <a class="category-list-link" href="https://www.raymondcamden.com/tags/windows">
+                    windows
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+</div>
+	
+	
+
+    <div id="toTop" class="fa fa-chevron-up fix" style="left: 970.156px;"></div>
+</aside>
+
+</div>
+</div>
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      © 2017
+      Powered by <a href="https://gohugo.io/">Hugo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-70863-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+<script src="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/jquery.min.js.téléchargement"></script>
+<script src="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/df7c188b9da5de03d3f5495574a0f06e1a13182a.js.téléchargement"></script>
+
+
+
+
+</div><iframe style="display: none;" src="./Parsing RSS Feeds in JavaScript - Options · Raymond Camden_files/saved_resource(2).html"></iframe></body></html>
