@@ -8,4 +8,4 @@ Problems :
 - when you reset the canvas, the last point you have draw reappear
 
 Solution :
-- delete the last point storage
+- the problem come from the fill of the circle which arrive with the creation of another circle
