@@ -7,6 +7,8 @@ window.addEventListener("load", function() {
 	 f_canvas();
 });
 
+window.addEventListener("keydown", changeColor);
+
 function f_canvas(){
 	canvas = document.getElementById('canvas');
 	context = canvas.getContext('2d');
@@ -40,4 +42,38 @@ function mouseStateDown(){
 
 function mouseStateUp(){
 	mouse_down = false;
+}
+
+function changeColor(event){
+	console.log(event.keyCode);
+	if((event.keyCode==49)||(event.keyCode==97)){
+		draw_color = 'red';
+	}
+	if((event.keyCode==50)||(event.keyCode==98)){
+		draw_color = 'green';
+	}
+	if((event.keyCode==51)||(event.keyCode==99)){
+		draw_color = 'blue';
+	}
+	if((event.keyCode==52)||(event.keyCode==100)){
+		draw_color = 'Aqua';
+	}
+	if((event.keyCode==53)||(event.keyCode==101)){
+		draw_color = 'BlueViolet';
+	}
+	if((event.keyCode==54)||(event.keyCode==102)){
+		draw_color = 'Chartreuse';
+	}
+	if((event.keyCode==55)||(event.keyCode==103)){
+		draw_color = 'Gold';
+	}
+	if((event.keyCode==56)||(event.keyCode==104)){
+		draw_color = 'OrangeRed';
+	}
+	if((event.keyCode==57)||(event.keyCode==105)){
+		draw_color = 'Magenta';
+	}
+	if((event.keyCode==48)||(event.keyCode==96)){
+		draw_color = 'black';
+	}
 }
