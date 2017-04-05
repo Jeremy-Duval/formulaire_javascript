@@ -1,7 +1,7 @@
 canvas{
-	border-style: outset;
-	margin-left: 20%;
-	margin-top: 5%;
-	width: 60%;
-	height: 50%;
+	background-color: white;
+}
+
+body{
+	background-color: rgb(153,217,234);
 }
